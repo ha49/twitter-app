@@ -4,8 +4,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-@Table(name = "user")
-public class User {
+//@Table(name = "Twi")
+public class TwitterUser {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,14 +32,14 @@ public class User {
     private String password;
 
 
-    public User() {
+    public TwitterUser() {
     }
 
-    public User(@NotEmpty String firstName,
-                @NotEmpty String lastName,
-                @NotEmpty String email,
-                @NotEmpty String username,
-                @NotEmpty String password) {
+    public TwitterUser(@NotEmpty String firstName,
+                       @NotEmpty String lastName,
+                       @NotEmpty String email,
+                       @NotEmpty String username,
+                       @NotEmpty String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
