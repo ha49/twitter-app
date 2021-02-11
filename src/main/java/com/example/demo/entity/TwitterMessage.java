@@ -13,13 +13,13 @@ public class TwitterMessage {
     @ManyToOne
     private TwitterUser twitterUser;
 
-    private String twit;
+    private String tweet;
 
     private LocalDateTime messageTime;
 
-    public TwitterMessage(TwitterUser twitterUser, String twit, LocalDateTime messageTime) {
+    public TwitterMessage(TwitterUser twitterUser, String tweet, LocalDateTime messageTime) {
         this.twitterUser = twitterUser;
-        this.twit = twit;
+        this.tweet = tweet;
         this.messageTime = messageTime;
     }
 
@@ -42,12 +42,12 @@ public class TwitterMessage {
         this.twitterUser = twitterUser;
     }
 
-    public String getTwit() {
-        return twit;
+    public String getTweet() {
+        return tweet;
     }
 
-    public void setTwit(String twit) {
-        this.twit = twit;
+    public void setTweet(String twit) {
+        this.tweet = twit;
     }
 
     public LocalDateTime getMessageTime() {
