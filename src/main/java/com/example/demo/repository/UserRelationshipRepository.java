@@ -10,7 +10,7 @@ public interface UserRelationshipRepository
         extends JpaRepository<UserRelationship, Long> {
     @Query("SELECT u FROM TwitterUser u inner join UserRelationship ur on ur.follower.id = u.id " +
 
-            " WHERE  ur.followed.id = :userId")
+            " WHERE  ur.followed.id = :userId order by u.username")
     Iterable<TwitterUser> findFollowers(
             @Param("userId") Long userId);
 

@@ -5,10 +5,7 @@ import com.example.demo.entity.TwitterUser;
 import com.example.demo.exceptions.UserNotFoundException;
 import com.example.demo.repository.TwitterMessageRepository;
 import com.example.demo.repository.TwitterUserRepository;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
@@ -37,6 +34,18 @@ public class TwitterMessageController {
         twitterMessage.setMessageTime(messageTime);
         return twitterMessageRepository.save(twitterMessage);
 
+    }
+
+
+    @GetMapping("/mytimeline/{myId}")
+    public Iterable<TwitterMessage> getMyTimeline(@PathVariable long myId) {
+
+        TwitterUser me = twitterUserRepository.findById(myId).orElseThrow(
+                () -> new UserNotFoundException("follower user id not found "));
+
+
+        Iterable<TwitterMessage> myTimeline = twitterMessageRepository.getMyTimeline(myId);
+        return myTimeline;
     }
 
 
