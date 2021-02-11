@@ -18,6 +18,7 @@ public class UserRelationshipController {
     private UserRelationshipRepository userRelationshipRepository;
 
 
+
     public UserRelationshipController(TwitterUserRepository twitterUserRepository,
                                       UserRelationshipRepository userRelationshipRepository) {
         this.twitterUserRepository = twitterUserRepository;
@@ -38,5 +39,37 @@ public class UserRelationshipController {
 
     }
 
+    // GET ALL
+    @GetMapping("/getrelationships")
+    public Iterable<UserRelationship> getAllRelationships() {
+        LOGGER.info("/getrelationships☺");
+        return userRelationshipRepository.findAll();
+    }
+
+    // GET FOLLOWERS
+    @GetMapping("/getfollowers/{id}")
+    public Iterable<TwitterUser> getFollowers(@PathVariable long id) {
+        LOGGER.info("/getfollowers/{id}");
+
+        TwitterUser me = twitterUserRepository.findById(id).orElseThrow(
+                () -> new UserNotFoundException("following  user id not found "));
+
+
+        Iterable<TwitterUser> followers = userRelationshipRepository.findFollowers(id);
+        return followers;
+    }
+
+    // GET FOLLOWING
+    @GetMapping("/getfollowing/{id}")
+    public Iterable<TwitterUser> getFollowing(@PathVariable long id) {
+        LOGGER.info("/getfollowing/{id}");
+
+        TwitterUser me = twitterUserRepository.findById(id).orElseThrow(
+                () -> new UserNotFoundException("follower user id not found "));
+
+
+        Iterable<TwitterUser> following = userRelationshipRepository.findFollowing(id);
+        return following;
+    }
 
 }
