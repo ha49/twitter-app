@@ -4,6 +4,7 @@ import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -30,7 +31,13 @@ public class UserController {
         return userRepository.findById(id).orElseThrow(
                 () -> new NoSuchElementException("user with id " + id + " does not exist ")
 
-
         );
+    }
+
+    @GetMapping("/get/all")
+    public List<User> getAllUsers() {
+
+        return userRepository.findAll();
+
     }
 }
