@@ -48,5 +48,28 @@ public class TwitterMessageController {
         return myTimeline;
     }
 
+    //
+    //    @GetMapping("/mytweets/{myId}")
+    //    public Iterable<TwitterMessage> getMyTweets(@PathVariable long myId) {
+    //
+    //        TwitterUser me = twitterUserRepository.findById(myId).orElseThrow(
+    //                () -> new UserNotFoundException("follower user id not found "));
+    //
+    //
+    //        Iterable<TwitterMessage> myTweets = twitterMessageRepository.getMyTweets(myId);
+    //        return myTweets;
+    //    }
+
+
+    @GetMapping("/mytweets/{myUsername}")
+    public Iterable<TwitterMessage> getMyTweetsUsername(@PathVariable String myUsername) {
+
+        if (twitterUserRepository.findUserByUsername(myUsername) == null) {
+            throw new UserNotFoundException("follower user id not found ");
+
+        } else
+            return twitterMessageRepository.getMyTweetsByUsername(myUsername);
+    }
+
 
 }

@@ -14,4 +14,15 @@ public interface TwitterMessageRepository extends JpaRepository<TwitterMessage, 
             " WHERE  ur.follower.id = :userId order by m.messageTime desc")
     Iterable<TwitterMessage> getMyTimeline(@Param("userId") Long userId);
 
+
+    @Query("SELECT m FROM TwitterMessage m WHERE m.twitterUser.id=:userId " +
+
+            " order by m.messageTime desc")
+    Iterable<TwitterMessage> getMyTweets(@Param("userId") Long userId);
+
+
+    @Query("SELECT m FROM TwitterMessage m WHERE m.twitterUser.username=:myUsername " +
+
+            " order by m.messageTime desc")
+    Iterable<TwitterMessage> getMyTweetsByUsername(String myUsername);
 }
